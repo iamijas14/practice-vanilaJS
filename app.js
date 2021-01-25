@@ -4,19 +4,31 @@
 var btnClk=document.querySelector("#btn");
 var textArea=document.querySelector("#text");
 var outputText=document.querySelector("#output");
-console.log(btnClk)
+// console.log(btnClk)
 
+var serverUrl="https://lessonfourapi.tanaypratap.repl.co/translate/yoda.json"
 
-
-
-btnClk.addEventListener("click", clickhandler)
-
-function clickhandler()
+function getUrl(text)
 {
-    
-    // console.log("clicked");
-    textArea.value
-    outputText.innerText=textArea.value;
+    return serverUrl + "?" + "text=" +text;
 }
 
 
+function clickhandler()
+{
+
+    var inputText=textArea.value;
+    fetch(getUrl(inputText))
+    .then(response => response.json())
+    .then(json => {
+        var translatedText= json.contents.translated;
+        outputText.innerText=translatedText;
+    })
+    
+    // // console.log("clicked");
+    // console.log(textArea.value)
+    // outputText.innerText=textArea.value;
+}
+
+
+btnClk.addEventListener("click", clickhandler)
